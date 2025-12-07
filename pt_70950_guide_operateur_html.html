@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PT-70950 — Guide Opérateur (Filtre-Presse TEFSA)</title>
+  <meta name="description" content="Fiche opératoire interactive et imprimable pour le filtre-presse TEFSA PT-70950 (OCP Safi)." />
+  <style>
+    :root{
+      --bg: #0b1020; /* dark base for gradients */
+      --bg-alt:#0f172a;
+      --card:#0b1226;
+      --text:#0b0c10;
+      --muted:#5b667a;
+      --primary:#2f6ecb;
+      --primary-600:#2a60b1;
+      --success:#1b9e5a;
+      --warning:#e0a100;
+      --danger:#d72638;
+      --border:#d9e1ee;
+      --surface:#ffffff;
+      --surface-2:#f5f7fb;
+      --shadow: 0 10px 30px rgba(5,24,58,.1);
+    }
+
+    [data-theme="dark"]{
+      --bg:#070a12;
+      --bg-alt:#0b1221;
+      --card:#0f172a;
+      --surface:#0f172a;
+      --surface-2:#0b1221;
+      --text:#e6eaf2;
+      --muted:#a6b0c3;
+      --border:#1d2a44;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text); background:linear-gradient(180deg, var(--surface-2), #fff 30%);
+    }
+    header{
+      position:sticky; top:0; z-index:30; backdrop-filter:saturate(1.2) blur(8px);
+      background:color-mix(in oklab, var(--surface) 90%, transparent);
+      border-bottom:1px solid var(--border);
+    }
+    .header-inner{
+      max-width:1100px; margin:0 auto; padding:12px 16px; display:flex; gap:12px; align-items:center; justify-content:space-between;
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{
+      width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg, var(--primary), #7aa9ff);
+      box-shadow:var(--shadow); display:grid; place-items:center; color:white; font-weight:800;
+    }
+    .title{line-height:1}
+    .title h1{font-size:18px; margin:0}
+    .title p{margin:0; color:var(--muted); font-size:12px}
+
+    nav.quick{
+      display:flex; gap:8px; flex-wrap:wrap
+    }
+    nav.quick a{ text-decoration:none; font-size:12px; padding:8px 10px; border:1px solid var(--border); border-radius:999px; color:var(--text); background:var(--surface); box-shadow:var(--shadow)}
+    nav.quick a:hover{ background:color-mix(in oklab, var(--surface), var(--primary) 8%); border-color:color-mix(in oklab, var(--border), var(--primary) 30%)}
+
+    .container{max-width:1100px; margin:18px auto 80px; padding:0 16px;}
+
+    .toolbar{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .toolbar .btn{padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:var(--surface); box-shadow:var(--shadow); cursor:pointer}
+    .toolbar .btn:hover{border-color:color-mix(in oklab, var(--border), var(--primary) 35%)}
+
+    .pill{padding:3px 8px; border-radius:999px; border:1px solid var(--border); display:inline-flex; align-items:center; gap:6px; font-size:12px}
+    .pill .led{width:10px; height:10px; border-radius:50%}
+
+    .grid{display:grid; gap:16px}
+    @media(min-width:900px){ .grid.cols-2{grid-template-columns:1fr 1fr} }
+
+    section.card{background:var(--surface); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); padding:16px}
+    section.card header{position:static; background:none; border:0}
+    section.card h2{margin:2px 0 10px; font-size:18px}
+    section.card p.lead{color:var(--muted); margin-top:0}
+
+    details.block{ border:1px solid var(--border); border-radius:16px; background:var(--surface);
+      box-shadow:var(--shadow); padding:10px 12px;}
+    details.block>summary{ cursor:pointer; list-style:none; font-weight:600; }
+    details.block[open]{ outline:2px solid color-mix(in oklab, var(--primary) 25%, transparent)}
+
+    .checklist{list-style:none; margin:8px 0 0; padding:0}
+    .checklist li{ display:flex; align-items:flex-start; gap:10px; padding:10px; border:1px dashed var(--border); border-radius:12px; margin-bottom:8px; background:var(--surface-2)}
+    .checklist input[type="checkbox"]{ transform:scale(1.2); margin-top:2px }
+    .hint{ color:var(--muted); font-size:12px }
+
+    .badge{ display:inline-flex; align-items:center; gap:6px; padding:6px 8px; border-radius:10px; font-size:12px; border:1px solid var(--border);}
+    .badge.ok{ background:color-mix(in oklab, var(--success) 12%, transparent); border-color:color-mix(in oklab, var(--success), var(--border))}
+    .badge.warn{ background:color-mix(in oklab, var(--warning) 18%, transparent); border-color:color-mix(in oklab, var(--warning), var(--border))}
+    .badge.danger{ background:color-mix(in oklab, var(--danger) 15%, transparent); border-color:color-mix(in oklab, var(--danger), var(--border))}
+
+    .note{ width:100%; min-height:120px; padding:12px; border-radius:12px; border:1px solid var(--border); background:var(--surface-2)}
+    .small{ font-size:12px; color:var(--muted)}
+
+    .kpi{ display:flex; gap:10px; flex-wrap:wrap }
+    .kpi .tile{ flex:1 1 220px; border:1px solid var(--border); border-radius:14px; padding:10px 12px; background:var(--surface); box-shadow:var(--shadow)}
+    .kpi .tile .value{ font-size:20px; font-weight:700 }
+    .kpi .tile .label{ font-size:12px; color:var(--muted)}
+
+    .timer { display:flex; align-items:center; gap:8px; }
+    .timer .display{ font-variant-numeric:tabular-nums; font-weight:700; padding:6px 10px; border-radius:8px; background:var(--surface-2); border:1px solid var(--border)}
+
+    .callout{ border-left:5px solid var(--primary); background:color-mix(in oklab, var(--primary) 8%, transparent); padding:12px 12px; border-radius:10px;}
+    .callout.warn{ border-color:var(--warning); background:color-mix(in oklab, var(--warning) 15%, transparent)}
+    .callout.danger{ border-color:var(--danger); background:color-mix(in oklab, var(--danger) 12%, transparent)}
+
+    .footer{ margin:40px 0 16px; text-align:center; color:var(--muted); font-size:12px }
+
+    /* Print styles */
+    @media print{
+      header, .toolbar, nav.quick { display:none !important }
+      body{ background:#fff; }
+      section.card{ break-inside:avoid; box-shadow:none; }
+      a[href]:after{ content:"" }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">FP</div>
+        <div class="title">
+          <h1>PT-70950 — Guide Opérateur</h1>
+          <p>Filtre-Presse TEFSA • OCP Safi • Version opératoire imprimable</p>
+        </div>
+      </div>
+      <nav class="quick" aria-label="Accès rapide">
+        <a href="#securite">Sécurité</a>
+        <a href="#preparation">Préparation</a>
+        <a href="#modes">Modes</a>
+        <a href="#manuel">Cycle MAN</a>
+        <a href="#parametres">Paramètres</a>
+        <a href="#depannage">Dépannage</a>
+        <a href="#lavage">Lavage toiles</a>
+      </nav>
+      <div class="toolbar" role="group" aria-label="Actions">
+        <button class="btn" id="toggle-theme" title="Basculer thème">🌗 Thème</button>
+        <button class="btn" onclick="window.print()" title="Imprimer la fiche">🖨️ Imprimer</button>
+        <button class="btn" id="reset-all" title="Effacer tous les états">♻️ Réinitialiser</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section id="securite" class="card" aria-labelledby="h-sec">
+      <h2 id="h-sec">Sécurité avant tout</h2>
+      <p class="lead">Respecter les consignes HSE du site et les sécurités machine. Interrompre immédiatement si une alarme critique se déclenche.</p>
+      <div class="grid cols-2">
+        <div>
+          <div class="callout warn">
+            <strong>EPI requis :</strong> casque, lunettes anti-projection, gants chimiques, combinaison anti-acide, bottes, protection auditive, masque si brouillards acides.
+          </div>
+          <ul class="checklist" id="epi-list">
+            <li><label><input type="checkbox" data-save id="epi-casque"> Casque</label></li>
+            <li><label><input type="checkbox" data-save id="epi-lunettes"> Lunettes anti-projection</label></li>
+            <li><label><input type="checkbox" data-save id="epi-gants"> Gants chimiques</label></li>
+            <li><label><input type="checkbox" data-save id="epi-combi"> Combinaison anti-acide</label></li>
+            <li><label><input type="checkbox" data-save id="epi-bottes"> Bottes</label></li>
+            <li><label><input type="checkbox" data-save id="epi-auditif"> Protection auditive</label></li>
+          </ul>
+        </div>
+        <div>
+          <div class="callout danger">
+            <strong>Arrêt d'urgence :</strong> utiliser l'arrêt d'urgence en cas de fuite importante, surpression membranes, personne en zone dangereuse, perte d'alimentation, défaut hydraulique.
+          </div>
+          <p class="small">LOTO obligatoire avant toute intervention mécanique (toiles, vannes, capteurs, pompes).</p>
+          <div class="kpi" aria-label="Rappels rapides">
+            <div class="tile"><div class="value">≥ 6 bar</div><div class="label">Air utilités pour soufflage / automatismes</div></div>
+            <div class="tile"><div class="value">≤ 12 bar</div><div class="label">Eau de <em>gonflage membranes</em></div></div>
+            <div class="tile"><div class="value">1.5–2.5 bar</div><div class="label">Pression d'<em>entrée</em> en filtration</div></div>
+            <div class="tile"><div class="value">≈ 0.7 bar abs</div><div class="label">Vide de dégonflage</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="preparation" class="card" aria-labelledby="h-prep">
+      <h2 id="h-prep">Checklist de préparation</h2>
+      <p class="lead">Valider l'état « machine prête » avant de lancer un cycle.</p>
+      <ul class="checklist">
+        <li><label><input type="checkbox" data-save id="prep-alim"> Alimentation électrique ON — auto-tests OK — aucune alarme critique active.</label></li>
+        <li><label><input type="checkbox" data-save id="prep-air"> Air ≥ 6 bar disponible (compresseurs E-1001/1004/1005).</label></li>
+        <li><label><input type="checkbox" data-save id="prep-b100"> Niveau boues B100 suffisant (LIC‑I‑105 non bas).</label></li>
+        <li><label><input type="checkbox" data-save id="prep-vannes"> Vannes en configuration initiale conforme (admission boues fermée, purges fermées, by-pass fermé).
+          <span class="hint">Se référer au schéma de boucle de la salle de contrôle.</span></label></li>
+        <li><label><input type="checkbox" data-save id="prep-dp5"> Chariot plaques en position parking (DP5).</label></li>
+        <li><label><input type="checkbox" data-save id="prep-fi5"> Portique de lavage stationné (FI5) et <strong>lance en bas</strong> (FI6).
+          <span class="hint">Aucun obstacle sur trajectoire.</span></label></li>
+        <li><label><input type="checkbox" data-save id="prep-zone"> Zone d’évacuation gâteaux libre et balisée.</label></li>
+        <li><label><input type="checkbox" data-save id="prep-pompes"> Pompes liées prêtes (P101/P103, P201/202, P401, P402, P901…).</label></li>
+      </ul>
+    </section>
+
+    <section id="modes" class="card" aria-labelledby="h-modes">
+      <h2 id="h-modes">Choix du mode</h2>
+      <div class="grid cols-2">
+        <div>
+          <details class="block" open>
+            <summary>Automatique — cycles continus</summary>
+            <ol class="checklist" style="list-style:decimal inside">
+              <li>Filtre fermé et plateaux fermés (voir ci‑dessous si nécessaire).</li>
+              <li>Sélecteur sur <strong>AUT</strong> — choisir <em>cycles continus</em>.</li>
+              <li>L'automate enchaîne : remplissage → filtration → opérations programmées (soufflage/lavage/gonflage) → ouverture/vidange → fermeture.</li>
+              <li>Surveiller pressions (PT‑I‑102; PT‑I‑1101/1102), débits (FT‑I‑101) et niveaux (B200, B300, B900).</li>
+            </ol>
+            <p class="small">Fin de cycle selon seuil pression et/ou débit. Ajuster durées sur pupitre TEFSA si nécessaire.</p>
+          </details>
+        </div>
+        <div>
+          <details class="block">
+            <summary>Automatique — cycle unique</summary>
+            <ol class="checklist" style="list-style:decimal inside">
+              <li>Préparer la machine (checklist ci‑dessus).</li>
+              <li>Sélecteur <strong>AUT</strong> — <em>cycle unique</em> puis Démarrer.</li>
+              <li>À la fin, la machine revient en attente (filtre fermé).</li>
+            </ol>
+            <p class="small">Utiliser pour tester des réglages ou en cas de file d'attente limitée.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="manuel" class="card" aria-labelledby="h-man">
+      <h2 id="h-man">Cycle manuel — pas à pas</h2>
+      <p class="lead">Utiliser quand l’automatique est indisponible ou pour reprise après incident.</p>
+
+      <details class="block" open>
+        <summary>1) Fermer le filtre</summary>
+        <ul class="checklist">
+          <li><label><input type="checkbox" data-save id="man-close-filter"> Sélecteur <strong>MAN</strong>, bouton <em>Fermeture filtre 0–1</em> maintenu jusqu’à pression de fermeture validée (PT‑I‑1101/1102).</label></li>
+          <li><span class="badge ok">Conditions OK</span> DP5 parking plaques • FI5 portique station • FI6 lance en bas • Vannes en position.</li>
+        </ul>
+      </details>
+
+      <details class="block">
+        <summary>2) Fermer les plateaux</summary>
+        <ul class="checklist">
+          <li><label><input type="checkbox" data-save id="man-close-plates"> Bouton <em>Plateaux 0–1</em> jusqu’au signal <strong>DP7 = fermés</strong>.</label></li>
+        </ul>
+      </details>
+
+      <details class="block">
+        <summary>3) Remplissage → Filtration</summary>
+        <ul class="checklist">
+          <li><label><input type="checkbox" data-save id="man-fill"> Activer <em>Filtration 0–1</em> : pompe boues (P101/P103) alimente, surveiller pression d’entrée 1.5–2.5 bar.</label></li>
+          <li><label><input type="checkbox" data-save id="man-filter"> Filtration régulée (PT‑I‑102 / FT‑I‑101). Fin quand seuil atteint ou débit faible.</label></li>
+        </ul>
+        <div class="timer" data-timer="filtration">
+          ⏱️ <span class="display" id="t-filtration">00:00:00</span>
+          <button class="btn" data-timer-start="filtration">Démarrer</button>
+          <button class="btn" data-timer-stop="filtration">Arrêter</button>
+          <button class="btn" data-timer-reset="filtration">Remise à zéro</button>
+        </div>
+      </details>
+
+      <details class="block">
+        <summary>4) (Option) Soufflage du gâteau</summary>
+        <ul class="checklist">
+          <li><label><input type="checkbox" data-save id="man-blow"> Air 2.5–3 bar — configuration soufflage (collecteur / chambres). Purger collecteur avant/Après.</label></li>
+        </ul>
+        <div class="timer" data-timer="soufflage">
+          ⏱️ <span class="display" id="t-soufflage">00:00:00</span>
+          <button class="btn" data-timer-start="soufflage">Démarrer</button>
+          <button class="btn" data-timer-stop="soufflage">Arrêter</button>
+          <button class="btn" data-timer-reset="soufflage">Remise à zéro</button>
+        </div>
+      </details>
+
+      <details class="block">
+        <summary>5) (Option) Lavage du gâteau</summary>
+        <ul class="checklist">
+          <li><label><input type="checkbox" data-save id="man-wash-cake"> Ouvrir circuit lavage (B900/P901) → récupérer dans B300. Maintenir 1.5–2.5 bar en entrée filtre.</label></li>
+        </ul>
+        <div class="timer" data-timer="lavagegateau">
+          ⏱️ <span class="display" id="t-lavagegateau">00:00:00</span>
+          <button class="btn" data-timer-start="lavagegateau">Démarrer</button>
+          <button class="btn" data-timer-stop="lavagegateau">Arrêter</button>
+          <button class="btn" data-timer-reset="lavagegateau">Remise à zéro</button>
+        </div>
+      </details>
+
+      <details class="block">
+        <summary>6) (Option) Gonflage des membranes</summary>
+        <div class="callout">
+          <strong>Limite de sécurité :</strong> <span class="badge danger">≤ 12 bar</span> eau membranes. Interdit d’ouvrir le filtre si ≥ 1 bar.
+        </div>
+        <ul class="checklist">
+          <li><label><input type="checkbox" data-save id="man-mem"> Ouvrir alimentation eau membranes — surveiller PT membranes — arrêter si dépassement.</label></li>
+        </ul>
+        <div class="timer" data-timer="gonflage">
+          ⏱️ <span class="display" id="t-gonflage">00:00:00</span>
+          <button class="btn" data-timer-start="gonflage">Démarrer</button>
+          <button class="btn" data-timer-stop="gonflage">Arrêter</button>
+          <button class="btn" data-timer-reset="gonflage">Remise à zéro</button>
+        </div>
+      </details>
+
+      <details class="block">
+        <summary>7) Décompression / Dégonflage</summary>
+        <ul class="checklist">
+          <li><label><input type="checkbox" data-save id="man-decomp"> Décompression : arrêter pompe membranes, ouvrir décharge, descendre à 0 bar.</label></li>
+          <li><label><input type="checkbox" data-save id="man-degonf"> Dégonflage par vide (~0.7 bar abs) jusqu’à stabilisation.</label></li>
+        </ul>
+      </details>
+
+      <details class="block">
+        <summary>8) Ouverture et déchargement des gâteaux</summary>
+        <ul class="checklist">
+          <li><label><input type="checkbox" data-save id="man-open"> Descendre plateaux (DP8) puis ouvrir le filtre.</label></li>
+          <li><label><input type="checkbox" data-save id="man-transport"> Lancer <em>transport des plaques 0–1</em> : P402 eau de mer, P401 trémie, émotteuse, vis, déplacement plaques.</label></li>
+        </ul>
+      </details>
+
+      <details class="block">
+        <summary>9) Lavage automatique des toiles</summary>
+        <ul class="checklist">
+          <li><label><input type="checkbox" data-save id="man-cloth-wash"> Sélecteur <strong>lavage</strong> + <strong>AUT</strong>, pompe lavage en recirculation, pression 60–70 bar recommandée.</label></li>
+          <li><span class="hint">Le portique centre chaque plaque; alternance pulvérisation / recirculation. En cas de panne, recentrer en MAN puis relancer en AUT.</span></li>
+        </ul>
+      </details>
+
+    </section>
+
+    <section id="parametres" class="card" aria-labelledby="h-param">
+      <h2 id="h-param">Paramètres et plages de référence</h2>
+      <div class="grid cols-2">
+        <div>
+          <ul class="checklist">
+            <li>Air utilités / soufflage : <strong>2.5–3 bar</strong></li>
+            <li>Pression d’entrée en filtration : <strong>1.5–2.5 bar</strong></li>
+            <li>Eau de gonflage membranes : <strong>≤ 12 bar</strong></li>
+            <li>Vide de dégonflage : <strong>≈ 0.7 bar absolu</strong></li>
+          </ul>
+        </div>
+        <div>
+          <ul class="checklist">
+            <li>Pression hydraulique fermeture : <em>valide par automate (PT‑I‑1101/1102)</em></li>
+            <li>Fin de filtration : <em>seuil pression (PT‑I‑102) et/ou débit (FT‑I‑101)</em></li>
+            <li>Niveaux réservoirs : <em>B100, B200, B300, B900</em> selon alarmes site</li>
+          </ul>
+        </div>
+      </div>
+      <p class="small">Adapter les valeurs selon consignes locales TEFSA / exploitation. Ce document n’écrase pas les procédures officielles.</p>
+    </section>
+
+    <section id="depannage" class="card" aria-labelledby="h-dep">
+      <h2 id="h-dep">Alarmes & Dépannage rapide</h2>
+      <div class="grid cols-2">
+        <div>
+          <details class="block" open>
+            <summary>Défauts fréquents</summary>
+            <ul class="checklist">
+              <li><strong>Air &lt; 6 bar :</strong> vérifier compresseurs E‑1001/1004/1005, fuites, vannes d’isolement.</li>
+              <li><strong>PT‑I‑102 haut en début de cycle :</strong> toiles encrassées → lancer <em>lavage toiles</em>.</li>
+              <li><strong>FT‑I‑101 nul :</strong> admission boues fermée / pompe non amorcée P101/P103 / clapet bloqué.</li>
+              <li><strong>B100 bas (LIC‑I‑105) :</strong> réalimenter, purger air dans la ligne d’amenée.</li>
+              <li><strong>Membranes &gt; 12 bar :</strong> arrêter alimentation eau, ouvrir décharge, rechercher vanne fermée.</li>
+              <li><strong>Transport plaques bloqué :</strong> obstacle sur rails / DP5 non détecté / portique non station (FI5).</li>
+            </ul>
+          </details>
+        </div>
+        <div>
+          <details class="block">
+            <summary>Bonnes pratiques</summary>
+            <ul class="checklist">
+              <li>Rincer collecteur avant et après soufflage.</li>
+              <li>Éviter d’ouvrir le filtre &gt; 1 bar membranes.</li>
+              <li>Vérifier purge acide du bac gâteaux avant transport plaques.</li>
+              <li>Surveiller températures (si capteurs disponibles) pour protéger toiles/membranes.</li>
+              <li>Documenter chaque incident dans <em>Notes de quart</em>.</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="lavage" class="card" aria-labelledby="h-wash">
+      <h2 id="h-wash">Lavage automatique des toiles — mémo</h2>
+      <ol class="checklist" style="list-style:decimal inside">
+        <li>Mettre sélecteur sur <strong>lavage</strong> + <strong>AUT</strong>; activer pompe de lavage (recirculation).</li>
+        <li>Fermer filtre &amp; plateaux; portique en position départ; lance en bas.</li>
+        <li>Lancer le cycle — pression recommandée 60–70 bar.</li>
+        <li>Surveiller déplacements : centrage plaque → pulvérisation → recirculation → plaque suivante.</li>
+        <li>En cas d’arrêt : repasser en MAN, recentrer la plaque/lance, retourner en AUT.</li>
+      </ol>
+    </section>
+
+    <section id="notes" class="card" aria-labelledby="h-notes">
+      <h2 id="h-notes">Notes de quart</h2>
+      <textarea class="note" id="notes-area" placeholder="Saisir ici les observations, incidents, réglages… (sauvegarde automatique)"></textarea>
+      <div class="toolbar" style="margin-top:8px">
+        <button class="btn" id="stamp">📌 Ajouter l'horodatage</button>
+        <button class="btn" id="export-json">⬇️ Exporter</button>
+        <label class="btn" for="import-json">⬆️ Importer <input type="file" id="import-json" accept="application/json" hidden></label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Fiche réflexe (résumé rapide)</h2>
+      <div class="grid cols-2">
+        <div>
+          <h3>Avant de démarrer</h3>
+          <ul class="checklist">
+            <li>EPI complets • Zone sûre • Vannes conformes</li>
+            <li>Air ≥ 6 bar • Boues B100 OK • Alarmes = 0</li>
+            <li>Portique station (FI5) • Lance en bas (FI6) • DP5 parking</li>
+          </ul>
+        </div>
+        <div>
+          <h3>En cycle</h3>
+          <ul class="checklist">
+            <li>Filtration 1.5–2.5 bar entrée</li>
+            <li>Soufflage 2.5–3 bar (si utilisé)</li>
+            <li>Membranes ≤ 12 bar</li>
+            <li>Vide ≈ 0.7 bar abs</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      PT-70950 • TEFSA — Document d’aide opératoire. Référez‑vous toujours aux procédures officielles et au pupitre TEFSA.
+    </div>
+  </main>
+
+  <script>
+    // ---------- Theming ----------
+    const themeBtn = document.getElementById('toggle-theme');
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('pt70950.theme') || 'light';
+    root.setAttribute('data-theme', savedTheme);
+    themeBtn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('pt70950.theme', next);
+    });
+
+    // ---------- Persist checkboxes & notes ----------
+    function persistCheckboxes(){
+      document.querySelectorAll('input[type="checkbox"][data-save]').forEach(cb => {
+        const key = 'pt70950.cb.' + cb.id;
+        const saved = localStorage.getItem(key);
+        if(saved !== null) cb.checked = saved === '1';
+        cb.addEventListener('change', () => localStorage.setItem(key, cb.checked ? '1' : '0'));
+      });
+    }
+    persistCheckboxes();
+
+    const notes = document.getElementById('notes-area');
+    notes.value = localStorage.getItem('pt70950.notes') || '';
+    notes.addEventListener('input', () => localStorage.setItem('pt70950.notes', notes.value));
+
+    document.getElementById('stamp').addEventListener('click', () => {
+      const t = new Date();
+      const s = t.toLocaleString();
+      notes.value += (notes.value ? '\n' : '') + '[' + s + '] ';
+      notes.dispatchEvent(new Event('input'));
+      notes.focus();
+    });
+
+    // ---------- Export / Import JSON ----------
+    document.getElementById('export-json').addEventListener('click', () => {
+      const data = {};
+      // collect checkboxes
+      document.querySelectorAll('input[type="checkbox"][data-save]').forEach(cb => {
+        data[cb.id] = cb.checked;
+      });
+      data['notes'] = notes.value;
+      const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'pt70950_etat.json'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('import-json').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try{
+          const data = JSON.parse(reader.result);
+          Object.keys(data).forEach(id => {
+            if(id === 'notes'){ notes.value = data[id]; notes.dispatchEvent(new Event('input')); return; }
+            const el = document.getElementById(id);
+            if(el && el.type === 'checkbox'){ el.checked = !!data[id]; el.dispatchEvent(new Event('change')); }
+          });
+          alert('Données importées.');
+        }catch(err){ alert('Fichier invalide.'); }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    });
+
+    // ---------- Timers (simple) ----------
+    const timers = {};
+    function fmt(ms){
+      const s = Math.floor(ms/1000); const h = Math.floor(s/3600); const m = Math.floor((s%3600)/60); const sec = s%60;
+      return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
+    }
+    function tick(name){
+      const t = timers[name]; if(!t) return;
+      if(t.running){
+        const now = Date.now(); t.elapsed = (t.baseElapsed || 0) + (now - t.startedAt);
+        t.display.textContent = fmt(t.elapsed);
+        t.raf = requestAnimationFrame(() => tick(name));
+      }
+    }
+    function bindTimer(name){
+      const display = document.getElementById('t-'+name);
+      const startBtn = document.querySelector('[data-timer-start="'+name+'"]');
+      const stopBtn = document.querySelector('[data-timer-stop="'+name+'"]');
+      const resetBtn = document.querySelector('[data-timer-reset="'+name+'"]');
+      timers[name] = {display, startedAt:0, elapsed:0, baseElapsed:0, running:false, raf:null};
+      startBtn.addEventListener('click', () =>{
+        const t = timers[name]; if(t.running) return;
+        t.startedAt = Date.now(); t.running = true; cancelAnimationFrame(t.raf); tick(name);
+      });
+      stopBtn.addEventListener('click', () =>{
+        const t = timers[name]; if(!t.running) return;
+        t.running = false; t.baseElapsed = t.elapsed; cancelAnimationFrame(t.raf); tick(name);
+      });
+      resetBtn.addEventListener('click', () =>{
+        const t = timers[name]; t.running = false; t.startedAt = 0; t.elapsed = 0; t.baseElapsed = 0; cancelAnimationFrame(t.raf); display.textContent = '00:00:00';
+      });
+    }
+    ['filtration','soufflage','lavagegateau','gonflage'].forEach(bindTimer);
+
+    // ---------- Reset All ----------
+    document.getElementById('reset-all').addEventListener('click', () => {
+      if(!confirm('Réinitialiser tous les états (cases, notes, timers) ?')) return;
+      // clear only our keys
+      Object.keys(localStorage).forEach(k => { if(k.startsWith('pt70950.')) localStorage.removeItem(k); });
+      // reset checkboxes
+      document.querySelectorAll('input[type="checkbox"][data-save]').forEach(cb => cb.checked = false);
+      // reset notes
+      notes.value='';
+      // reset timers
+      Object.values(timers).forEach(t => { if(t.raf) cancelAnimationFrame(t.raf); });
+      ['filtration','soufflage','lavagegateau','gonflage'].forEach(n => document.getElementById('t-'+n).textContent='00:00:00');
+      alert('État réinitialisé.');
+    });
+  </script>
+</body>
+</html>
